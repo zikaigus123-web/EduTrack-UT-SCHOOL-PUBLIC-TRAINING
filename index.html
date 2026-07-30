@@ -927,25 +927,62 @@
             }
         }
 
-        function processLogin(event) {
-            event.preventDefault();
-            const userIn = document.getElementById('login-user').value;
-            const passIn = document.getElementById('login-pass').value;
-            
-            const user = users.find(u => u.username === userIn && u.password === passIn);
-            if (user) {
-                currentUser = user;
-                sessionStorage.setItem('eduTrack_currentUser', JSON.stringify(currentUser));
-                showMessage('success', 'Akses Diberikan', `Sistem mendeteksi login sah untuk ${user.name}`);
-                document.getElementById('login-pass').value = '';
-                checkAuth();
-                
-                // Set custom dashboard greeting
-                document.getElementById('dash-greeting').innerText = `Halo, ${user.name}.`;
-            } else {
-                showMessage('error', 'Akses Ditolak', 'Kredensial tidak valid dalam sistem.');
-            }
+      async function processLogin(event) {
+
+    event.preventDefault();
+
+    const userIn = document.getElementById('login-user').value.trim();
+    const passIn = document.getElementById('login-pass').value;
+
+    try {
+
+        const result = await API.login(userIn, passIn);
+
+        if (result.success) {
+
+            currentUser = result.data;
+
+            sessionStorage.setItem(
+                'eduTrack_currentUser',
+                JSON.stringify(currentUser)
+            );
+
+            showMessage(
+                'success',
+                'Akses Diberikan',
+                `Sistem mendeteksi login sah untuk ${currentUser.name}`
+            );
+
+            document.getElementById('login-pass').value = '';
+
+            checkAuth();
+
+            document.getElementById('dash-greeting').innerText =
+                `Halo, ${currentUser.name}.`;
+
+        } else {
+
+            showMessage(
+                'error',
+                'Akses Ditolak',
+                result.message
+            );
+
         }
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            'error',
+            'Kesalahan Sistem',
+            'Terjadi kesalahan saat menghubungi server.'
+        );
+
+    }
+
+}
 
         function logout() {
             currentUser = null;
