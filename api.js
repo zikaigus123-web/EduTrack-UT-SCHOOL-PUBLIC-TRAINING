@@ -1,4 +1,3 @@
-console.log("API JS BERHASIL DIMUAT");
 /******************************************************************
  * EduTrack API Client
  * Frontend -> Google Apps Script
@@ -6,6 +5,15 @@ console.log("API JS BERHASIL DIMUAT");
 
 const API_URL = "https://script.google.com/macros/s/AKfycbwvZ8gK5u7vhZdNEpD5Jp5qaQctn7J1pDVOBkbvJ5zOhgN8Q0qio6uNoBn4Z938FvZU/exec";
 
+console.log("API_URL =", API_URL);
+
+// ... seluruh kode ...
+
+const API = {
+    // ...
+};
+
+console.log("API =", API);
 /******************************************************************
  * Generic GET Request
  ******************************************************************/
