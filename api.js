@@ -1,3 +1,4 @@
+console.log("API JS BERHASIL DIMUAT");
 /******************************************************************
  * EduTrack API Client
  * Frontend -> Google Apps Script
