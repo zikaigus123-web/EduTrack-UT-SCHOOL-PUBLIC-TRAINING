@@ -851,14 +851,7 @@
         // --- DATA STRUCTURES & STATE ---
         let events = JSON.parse(localStorage.getItem('eduTrack_events')) || [];
         let participants = JSON.parse(localStorage.getItem('eduTrack_participants')) || [];
-        let users = JSON.parse(localStorage.getItem('eduTrack_users')) || [
-            { id: 'u1_admin', name: 'System Admin', username: 'admin', password: 'admin123', role: 'Admin' }
-        ];
-
-        if (!users.some(u => u.username === 'admin')) {
-            users.push({ id: 'u1_admin', name: 'System Admin', username: 'admin', password: 'admin123', role: 'Admin' });
-            localStorage.setItem('eduTrack_users', JSON.stringify(users));
-        }
+       let users = [];
 
         let currentUser = JSON.parse(sessionStorage.getItem('eduTrack_currentUser')) || null;
 
@@ -894,7 +887,7 @@
         function saveData() {
             localStorage.setItem('eduTrack_events', JSON.stringify(events));
             localStorage.setItem('eduTrack_participants', JSON.stringify(participants));
-            localStorage.setItem('eduTrack_users', JSON.stringify(users));
+            
             updateDashboard();
             updateEventDropdowns();
         }
